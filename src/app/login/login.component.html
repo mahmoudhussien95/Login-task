@@ -1,0 +1,60 @@
+ <div class="wrapper">
+  <div class="image">
+      <img src="./assets/image.png">
+  </div>
+  <h2 i18n="@@system">Login to the system</h2>
+  <div class="main">
+    <form class="form" action="">
+        <div id="username">
+          <input class="username" type="text" name="username"  placeholder="username" i18n-placeholder="username" (keyup)="onKey($event,'username')" required>
+          <div *ngIf="!isUsernameValid" class="validation" i18n="@@Valid">
+            Please write a valid username.
+          </div>
+        </div>
+        <div id="password">
+          <input class="password" type="password" name="password" placeholder="password" i18n-placeholder="password" (keyup)="onKey($event,'password')" required>
+          <div *ngIf="!isPasswordValid" class="validation" i18n="@@valid">
+            Please write a valid password.
+          </div>
+        </div>
+        <div id="remember-me">
+          <input type="checkbox">
+          <label for="remember me" i18n="@@remember-me" >Remember Me</label>
+        </div>
+        <button class="submit" type="submit" (click)="onSubmit()" [disabled]="!isUsernameValid" i18n="@@login">Login</button>
+    </form>
+   </div>
+   <div class="buildings">
+      <img src="./assets/buildings.png">
+   </div>
+ </div>
+
+ 
+ <!-- <form class="" novalidate>
+    <div class="">
+      <div class="input-group has-validation">
+        <span class="input-group-text" id="inputGroupPrepend">@</span>
+        <input type="text" class="form-control" id="validationCustomUsername" placeholder="UserName" (keyup)="onKey($event,'username')"
+         aria-describedby="inputGroupPrepend" required>
+        <div *ngIf="!isUsernameValid" class="invalid-feedback">
+          Please write a valid username.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+        <input type="password" class="form-control" placeholder="password" (keyup)="onKey($event,'password')" id="exampleInputPassword1">
+        <div *ngIf="!isPasswordValid" class="invalid-feedback">
+            Please write a valid password.
+        </div> 
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit" 
+      (click)="onSubmit()">Submit form</button>
+    </div>
+  </form> -->
+  
+
