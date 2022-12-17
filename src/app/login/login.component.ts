@@ -1,61 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { LoginService } from '../services/login/login.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup,FormControl,FormBuilder,FormControlName } from '@angular/forms';
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
- username:string='';
- password:string='';
- isUsernameValid: boolean=true;
- isPasswordValid: boolean=true;
+  LoginForm= new FormGroup({
+    username: new FormControl('',[ Validators.required,Validators.pattern(/^[a-zA-Z0-9_\.]+$/)] ),
+    password: new FormControl('',[ Validators.required,Validators.minLength(6)])
+  })
  error:any=null;
-
   constructor(
     private loginService:LoginService,
-  ) { }
+    public translate: TranslateService,
+    private formBuilder : FormBuilder,
+  ) { 
+  }
+  
 
   ngOnInit(): void {
-    this.loginService
-    .errorSubject
-    .subscribe( (errorMassage: any) => { this.error=errorMassage;})
+ 
+    //  this.loginService
+    //  .errorSubject
+    //  .subscribe( (errorMassage: any) => { this.error=errorMassage;})
   }
-  validateUsername(){
-    const pattern =RegExp(/^[a-zA-Z0-9]+$/);
-    if(pattern.test(this.username)){
-      this.isUsernameValid=true;
-    }else{
-      this.isUsernameValid=false;
-    }
+  loginUser(){
+    console.log(this.LoginForm.value);
   }
-  validatePassword(){
-    const pattern = RegExp(/^[a-zA-Z0-9]+$/);
-    if(pattern.test(this.password)){
-      this.isPasswordValid = true;
-    } else{
-      this.isPasswordValid = false;
-    }
+  get username(){
+    return this.LoginForm.get('username');
   }
-  onKey(event:any , type:string){
-    if(type === 'username'){
-      this.username=event.target.value;
-      this.validateUsername();
-    }
-    if (type === 'Password'){
-      this.password=event.target.value;
-      this.validatePassword();
-    }
-
+  get password(){ 
+    return this.LoginForm.get('password');
   }
-  onSubmit(){
-    if (this.isUsernameValid && this.isPasswordValid){
-      this.loginService.Login(this.username,this.password)
-    } else return;
-  }
-
 }

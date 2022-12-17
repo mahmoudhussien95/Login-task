@@ -2,27 +2,33 @@
   <div class="image">
       <img src="./assets/image.png">
   </div>
-  <h2 i18n="@@system">Login to the system</h2>
+  <h2 i18n="@@system">{{'Login to the system' | translate}}</h2>
   <div class="main">
-    <form class="form" action="">
+    <form class="form" [formGroup]="LoginForm" (ngSubmit)="loginUser()">
         <div id="username">
-          <input class="username" type="text" name="username"  placeholder="username" i18n-placeholder="username" (keyup)="onKey($event,'username')" required>
-          <div *ngIf="!isUsernameValid" class="validation" i18n="@@Valid">
-            Please write a valid username.
+            <input type="text" class="username"  formControlName="username" placeholder="{{'username' | translate}}" i18n-placeholder="username" requiredi18n-placeholder="password"  required>
+          <div *ngIf="username&& username.invalid && username.touched" class="validation" i18n="@@Valid">
+            {{'Please write a valid username.' | translate}}
           </div>
         </div>
         <div id="password">
-          <input class="password" type="password" name="password" placeholder="password" i18n-placeholder="password" (keyup)="onKey($event,'password')" required>
-          <div *ngIf="!isPasswordValid" class="validation" i18n="@@valid">
-            Please write a valid password.
+            <input type="password" class="password" formControlName="password" placeholder="{{'password' | translate}}" i18n-placeholder="password"  required>          
+          <div *ngIf="password && password.invalid && password.touched" class="validation" i18n="@@valid">
+            {{'Please write a valid password.' | translate}}
           </div>
         </div>
         <div id="remember-me">
           <input type="checkbox">
-          <label for="remember me" i18n="@@remember-me" >Remember Me</label>
+          <label for="remember me"  i18n="@@remember-me" >{{'Remember Me' | translate}}</label>
         </div>
-        <button class="submit" type="submit" (click)="onSubmit()" [disabled]="!isUsernameValid" i18n="@@login">Login</button>
-    </form>
+        <button class="submit" [disabled]="!LoginForm.valid" type="submit" i18n="@@login">
+          {{'Login'|translate}}
+        </button>
+        <div class="translate">
+        <button class="btn btn-light" (click)="translate.use('en')">en</button>
+        <button class="btn btn-light" (click)="translate.use('ar')">Ar</button>
+      </div>
+  </form>
    </div>
    <div class="buildings">
       <img src="./assets/buildings.png">
