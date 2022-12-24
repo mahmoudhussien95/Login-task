@@ -1,0 +1,40 @@
+<div class="wrapper">
+    <h2 i18n="@@system">{{'Sign Up to the system' | translate}}</h2>
+    <div class="main">
+      <form class="form" [formGroup]="LoginForm" (ngSubmit)="loginUser()">
+        <div class="username">
+          <input type="text" class="lastname" formControlName="name" placeholder="{{'Name' | translate}}" required>          
+        <div *ngIf="name&& name.invalid && name.touched" class="validation" i18n="@@valid">
+          {{'Please write a valid Name' | translate}}
+        </div>
+      </div>
+          <div class="username">
+              <input type="text" class="username"  formControlName="username" placeholder="{{'username' | translate}}" i18n-placeholder="username" requiredi18n-placeholder="password"  required>
+            <div *ngIf="username&& username.invalid && username.touched" class="validation" i18n="@@Valid">
+              {{'Please write a valid username' | translate}}
+            </div>
+          </div>
+        <div class="username">
+          <input type="email" class="email" formControlName="email" placeholder="{{'Email' | translate}}" required>          
+        <div *ngIf="email && email.invalid && email.touched" class="validation" i18n="@@valid">
+          {{'Please write a valid Email' | translate}}
+        </div>
+      </div>
+      <div class="username">
+        <input type="password" class="password" formControlName="password" placeholder="{{'password' | translate}}" i18n-placeholder="password"  required>          
+      <div *ngIf="password && password.invalid && password.touched" class="validation" i18n="@@valid">
+        {{'Please write a valid password' | translate}}
+      </div>
+    </div>
+          <button class="submit" [disabled]="!LoginForm.valid" type="submit" i18n="@@login">
+            {{'Sign up'|translate}}
+          </button>
+          <div class="translate">
+          <button class="btn btn-light" >en</button>
+          <button class="btn btn-light" >Ar</button>
+        </div>
+    </form>
+     </div>
+   </div>
+  
+  

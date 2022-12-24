@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { SignupComponent } from './signup/signup.component';
 
 
 
@@ -17,6 +18,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
+    SignupComponent,
     
   ],
   imports: [
