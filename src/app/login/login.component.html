@@ -1,37 +1,76 @@
- <div class="wrapper">
+<div class="wrapper">
   <div class="image">
-      <img src="./assets/image.png">
+    <img src="./assets/image.png">
   </div>
   <h2 i18n="@@system">{{'Login to the system' | translate}}</h2>
   <div class="main">
-    <form class="form" [formGroup]="LoginForm" (ngSubmit)="loginUser()">
-        <div id="username">
-            <input type="text" class="username"  formControlName="username" placeholder="{{'username' | translate}}" i18n-placeholder="username" requiredi18n-placeholder="password"  required>
-          <div *ngIf="username&& username.invalid && username.touched" class="validation" i18n="@@Valid">
+    <form class="form" [formGroup]="LoginForm">
+      <div id="username">
+        <input type="text" class="username" formControlName="username"
+         [ngClass]="{ 'is-invalid':(submittedschool && formRecordControls['username'].errors) ||
+            (formRecordControls['username'].touched && formRecordControls['username'].invalid) }"
+          placeholder="{{'username' | translate}}" i18n-placeholder="username" requiredi18n-placeholder="password"
+          required>
+        <!-- <div *ngIf="username&& username.invalid && username.touched" class="validation" i18n="@@Valid">
+            {{'Please write a valid username.' | translate}}
+          </div> -->
+        <div class="validation" *ngIf="
+          (submittedschool &&
+            formRecordControls['username'].errors) ||
+          (formRecordControls['username'].touched &&
+            formRecordControls['username'].invalid)
+           " class="invalid-feedback">
+          <div *ngIf="formRecordControls['username'].errors?.['required']">
             {{'Please write a valid username.' | translate}}
           </div>
-        </div>
-        <div id="password">
-            <input type="password" class="password" formControlName="password" placeholder="{{'password' | translate}}" i18n-placeholder="password"  required>          
-          <div *ngIf="password && password.invalid && password.touched" class="validation" i18n="@@valid">
-            {{'Please write a valid password.' | translate}}
+          <div *ngIf="formRecordControls['username'].errors?.['minlength']">
+            {{ "validation.minimumFour" | translate }}
+          </div>
+          <div *ngIf="formRecordControls['username'].errors?.['pattern']">
+            {{ 'validation.onlyArabic' | translate }}
           </div>
         </div>
-        <div id="remember-me">
-          <input type="checkbox">
-          <label for="remember me"  i18n="@@remember-me" >{{'Remember Me' | translate}}</label>
-        </div>
-        <button class="submit" [disabled]="!LoginForm.valid" type="submit" i18n="@@login">
-          {{'Login'|translate}}
-        </button>
-        <div class="translate">
-        <button class="btn btn-light" (click)="translate.use('en')">en</button>
-        <button class="btn btn-light" (click)="translate.use('ar')">Ar</button>
       </div>
-  </form>
- 
+      <div id="password">
+        <input type="password" class="password" formControlName="password" [ngClass]="{ 'is-invalid':(submittedschool && formRecordControls['password'].errors) ||
+            (formRecordControls['password'].touched && formRecordControls['password'].invalid) }"
+          placeholder="{{'password' | translate}}" i18n-placeholder="password" required>
+        <!-- <div *ngIf="password && password.invalid && password.touched" class="validation" i18n="@@valid">
+            {{'Please write a valid password.' | translate}}
+          </div> -->
+        <div class="validation" *ngIf="
+          (submittedschool &&
+            formRecordControls['password'].errors) ||
+          (formRecordControls['password'].touched &&
+            formRecordControls['password'].invalid)
+           " class="invalid-feedback">
+          <div *ngIf="formRecordControls['password'].errors?.['required']">
+            {{'Please write a valid username.' | translate}}
+          </div>
+          <div *ngIf="formRecordControls['password'].errors?.['minlength']">
+            {{ "validation.minimumFour" | translate }}
+          </div>
+          <div *ngIf="formRecordControls['password'].errors?.['pattern']">
+            {{ 'validation.onlyArabic' | translate }}
+          </div>
+        </div>
+      </div>
+      <div id="remember-me">
+        <input type="checkbox">
+        <label for="remember me" i18n="@@remember-me">{{'Remember Me' | translate}}</label>
+        <label class="goto" (click)="GOTO()">Go To Sign Up</label>
+      </div>
+      <button class="submit" [disabled]="!LoginForm.valid" (click)="loginUser()" type="submit" i18n="@@login">
+        {{'Login'|translate}}
+      </button>
+      <div class="translate">
+        <button class="btn btn-light" (change)="translate.use('en')">en</button>
+        <button class="btn btn-light" (change)="translate.use('ar')">Ar</button>
+      </div>
+    </form>
+
+  </div>
+  <div class="buildings">
+    <img src="./assets/buildings.png">
+  </div>
 </div>
-   <div class="buildings">
-      <img src="./assets/buildings.png">
-   </div>
- </div>

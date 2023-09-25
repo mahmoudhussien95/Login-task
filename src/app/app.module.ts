@@ -10,6 +10,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -19,6 +20,7 @@ import { SignupComponent } from './signup/signup.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
+    HomeComponent,
     
   ],
   imports: [

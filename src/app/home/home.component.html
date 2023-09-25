@@ -1,0 +1,159 @@
+<body>
+    <form [formGroup]="eventTest">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="comment" style="font-weight:bold;"> Category </label>
+                <select class="form-control" id="SchoolType" name="" formControlName="Category"
+                [ngClass]="{'is-invalid':(submittedschool && formRecordControls['Category'].errors) ||
+                (formRecordControls['Category'].touched &&
+                formRecordControls['Category'].invalid) }">
+                <option selected disabled value="">
+                {{
+                "None"
+                }}
+                </option>
+                <option *ngFor="let item of Qusetions" >
+                {{item.Category}}</option>
+                </select>
+                <div *ngIf="
+            (submittedschool &&
+              formRecordControls['Category'].errors) ||
+            (formRecordControls['Category'].touched &&
+              formRecordControls['Category'].invalid)
+          " class="invalid-feedback">
+      <div *ngIf="formRecordControls['Category'].errors?.['required']">
+          {{ "required" }}
+      </div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="comment" style="font-weight:bold;"> Title </label>
+                <select class="form-control" id="SchoolType" name="" formControlName="Title"
+                [ngClass]="{'is-invalid':(submittedschool && formRecordControls['Title'].errors) ||
+                (formRecordControls['Title'].touched &&
+                formRecordControls['Title'].invalid) }">
+                <option selected disabled value="">
+                {{
+                "None"
+                }}
+                </option>
+                <option *ngFor="let item of Qusetions" >
+                {{item.Title}}</option>
+                </select>
+                <div *ngIf="
+            (submittedschool &&
+              formRecordControls['Title'].errors) ||
+            (formRecordControls['Title'].touched &&
+              formRecordControls['Title'].invalid)
+          " class="invalid-feedback">
+      <div *ngIf="formRecordControls['Title'].errors?.['required']">
+          {{ "required" }}
+      </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="comment" style="font-weight:bolder;"> Owner </label>
+            <input type="text" class="form-control" formControlName="Owner" 
+              placeholder=" Owner ">
+            </div>
+            <div class="col">
+                <label for="comment" style="font-weight:bolder;"> Date </label>
+            <input type="date" class="form-control" formControlName="Date"
+              placeholder=" Date ">
+            </div>
+        </div>
+        <div class="card-footer text-center mt-5 mb-5">
+            <div class="buttons text-center">
+              <button class="btn btn-add" (click)="filtterEventTest()">
+                Fillter
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+        </div>
+    </form>
+    <button type="button" (click)="addEvents()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Event
+        </button>
+    <table class="table">
+    <thead>
+      <tr>
+        <!-- <th scope="col">
+        </th> -->
+        <th scope="col"> NO. </th>
+        <th scope="col"> Owner</th>
+        <th scope="col"> Title </th>
+        <th scope="col"> Category </th>
+        <th scope="col"> Description </th>
+        <th scope="col">  Date </th>
+        <th scope="col">  Action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of Qusetions">
+        <!-- <th scope="row">
+          <input class="form-check-input" type="checkbox" [checked]="item.id" [value]="item.id"
+            (change)="onChangeQusetions($event)" />
+        </th> -->
+        <td>{{item.id}}</td>
+        <td>{{item.Owner}}</td>
+        <td>{{item.Title}}</td>
+        <td>{{item.Category}}</td>
+        <td>{{item.Description}}</td>
+        <td>{{item.Date}}</td>
+        <td>
+            <button   class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editEvent(item)">Edit</button>
+            <button   class="btn btn-danger" (click)="deleteEvent()" >Delete</button>
+        </td>
+      </tr>
+
+
+    </tbody>
+    </table>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+                   <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Event Details</h1>
+                   </div>
+                   <div class="modal-body">
+                    <form [formGroup]="formValue">
+                <div class="mb-3 d-none">
+                    <label for="" class="form-label">Owner</label>
+                    <input type="hidden"  formControlName="Id" class="form-control" id="" aria-describedby="emailHelp">
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Owner</label>
+                    <input type="text"  formControlName="Owner" class="form-control" id="" aria-describedby="emailHelp">
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Title</label>
+                    <input type="text"  formControlName="Title" class="form-control" id="" aria-describedby="emailHelp">
+                </div>
+
+                <div class="mb-3">
+                  <label for="" class="form-label">Category</label>
+                  <input type="text"  formControlName="Category" class="form-control" id="">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Date</label>
+                    <input type="date"  formControlName="Date" class="form-control" id="">
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Description</label>
+                    <input type="text"  formControlName="Description" class="form-control" id="">
+                  </div>
+                    </form>
+                    </div>
+                     <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="postEvent()" *ngIf="showAdd" class="btn btn-primary">Add</button>
+          <button type="button" (click)="updateEvent()" *ngIf="showUbdate" class="btn btn-primary">Update</button>
+                    </div>
+      </div>
+    </div>
+    </div>
+</body>

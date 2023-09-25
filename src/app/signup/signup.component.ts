@@ -18,6 +18,10 @@ export class SignupComponent implements OnInit {
     password: new FormControl('',[ Validators.required,Validators.minLength(6)]),
 
   })
+  public get formRecordControls() {
+    return this.LoginForm.controls;
+  }
+  public submittedschool = false;
  error:any=null;
   constructor(
    
@@ -34,18 +38,5 @@ export class SignupComponent implements OnInit {
   }
   loginUser(){
     console.log(this.LoginForm.value);
-  }
-  get username(){
-    return this.LoginForm.get('username');
-  }
- 
-  get name(){
-    return this.LoginForm.get('name');
-  }
-  get email(){
-    return this.LoginForm.get('email');
-  }
-  get password(){ 
-    return this.LoginForm.get('password');
   }
 }
