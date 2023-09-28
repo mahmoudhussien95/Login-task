@@ -39,7 +39,8 @@ export class HomeComponent implements OnInit {
      {"id":18,"Title":"Web Developer III","Category":"Structural and Misc Steel (Fabrication)","Owner":"Findlay","Date":"7/28/2023","Description":"Displ spiral fx shaft of l femr, 7thQ"},
      {"id":19,"Title":"Pharmacist","Category":"RF Shielding","Owner":"Lilia","Date":"11/12/2022","Description":"Fracture of cervical vertebra and other parts of neck"},
      {"id":20,"Title":"Sales Associate","Category":"Construction Clean and Final Clean","Owner":"Gwendolyn","Date":"4/14/2023","Description":"Toxic effect of carbon dioxide, intentional self-harm, init"}]
-  constructor(
+  
+     constructor(
     private formBuilder: FormBuilder,
   ) { }
 
@@ -56,19 +57,16 @@ export class HomeComponent implements OnInit {
       Category:[''],
     });
   }
-  filtterEventTest(){
-
+  initAddEvent(){
+    this.formValue = this.formBuilder.group({
+      id:[''],
+      Owner: [''],
+      Title:[''],
+      Category :['',],
+      Date:[''],
+      Description:[''],
+    });
   }
-  // initAddEvent(){
-  //   this.formValue = this.formBuilder.group({
-  //     Id:[],
-  //     Owner: [''],
-  //     Title:[''],
-  //     Category :['',],
-  //     Date:[''],
-  //     Description:[''],
-  //   });
-  // }
   onChangeQusetions($event:any) {
     const id = $event.target.value;
     const ischeckes = $event.target.checked;
@@ -85,19 +83,18 @@ export class HomeComponent implements OnInit {
     });
     console.log(formatedArr)
   }
-  getSearchType(event: any) {
-      this.eventTest = event.target.value;
-  }
+  // getSearchType(event: any) {
+  //     this.eventTest = event.target.value;
+  // }
   filterButtenFun(event: any){
-    // console.log("mahmoud", this.drobDownForm.value)
     let key =  this.eventTest.value;
     console.log(key)
-  //   this.searchedData =  this.Qusetions.filter((item)=>{
-  //      if(item.degree == key.degree && item.time == key.time  && item.name == key.name && item.level == key.level) {
-  //        return item
-  //      }
-  //      return null
-  //  });
+    this.searchedData =  this.Qusetions.filter((item)=>{
+       if(item.Owner == key.Owner || item.Category == key.Category  || item.Date == key.Date || item.Title == key.Title) {
+        this.Qusetions = [item];
+       }
+       return this.Qusetions
+   });
   }
   applyFilter(event: any) {
      let key = event.target.value.trim().toLowerCase();
@@ -109,13 +106,15 @@ export class HomeComponent implements OnInit {
     this.showAdd=true;
     this.showUbdate=false;
     this.formValue = this.formBuilder.group({
-      Id: [''],
+      id: [''],
       Owner: [''],
       Title:[''],
-      Category :['',],
+      Category :[''],
       Date:[''],
       Description:[''],
     });
+
+    var ID=this.formValue.value.id
   }
   deleteEvent(){
   } 
@@ -123,14 +122,14 @@ export class HomeComponent implements OnInit {
     this.showAdd=false;
     this.showUbdate=true;
     this.formValue = this.formBuilder.group({
-      Id: [''],
+      id: [''],
       Owner: [''],
       Title:[''],
       Category :['',],
       Date:[''],
       Description:[''],
     });
-    this.formValue.controls['Id'].setValue(item.id);
+    this.formValue.controls['id'].setValue(item.id);
     this.formValue.controls['Owner'].setValue(item.Owner);
     this.formValue.controls['Title'].setValue(item.Title);
     this.formValue.controls['Category'].setValue(item.Category);
@@ -138,10 +137,18 @@ export class HomeComponent implements OnInit {
     this.formValue.controls['Description'].setValue(item.Description);
   }
   postEvent(){
-    
-
+    let add = this.formValue.value;
+    add.id = this.Qusetions.length + 1;
+    this.Qusetions = [...this.Qusetions, add];
+    console.log(this.Qusetions)
+    this.showAdd=false;
+    alert("Event Addded Successfully")
   }
   updateEvent(){
-
+    let add = this.formValue.value;
+    this.Qusetions[add.id - 1] = add;
+    console.log(this.Qusetions)
+    this.showUbdate=false;
+    alert("Event Ubdate Successfully")
   }
 }
